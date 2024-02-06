@@ -1,0 +1,73 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+/* ===================Navbar===============*/
+.navbar{
+    font-family:'Roboto',sans-serif;
+    font-size: 14px;
+    line-height: 26px;
+    text-transform: uppercase;
+    box-shadow: 0px 8px 6px -6px rgb(113, 112, 112);
+    border-bottom: 0.5px !important;
+}
+.nav-link{
+    font-weight: 300;
+}
+.active{
+    border-bottom: 1px solid black;
+}
+.navbar-brand{
+    font-size: 20px;
+    font-weight: 500;
+}
+/*=========footer*/
+.footer{
+    border-top: 1px solid black;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    padding: 25px;
+    background-color: aliceblue;
+}
+.footer a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+
+}
+.footer a:hover{
+    border-bottom: 1px solid white;
+    color: rgb(179, 64, 64);
+}
+
+.card-img-container {
+    position: relative;
+    overflow: hidden; 
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .card-img-container:hover .overlay {
+    opacity: 1;
+  }
+  
+  .card-img-top {
+    transition: transform 0.3s ease; 
+  }
+  
+  .card-img-container:hover .card-img-top {
+    transform: scale(1.1); 
+  }
+  
