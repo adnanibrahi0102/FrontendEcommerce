@@ -20,7 +20,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { cart, setCart } = useCart();
-  const apiUrl = 'https://ecommercebackend-6w18.onrender.com';
+ 
 
   //get total
   const getTotal = async () => {
@@ -55,7 +55,7 @@ const HomePage = () => {
   const getAllCategories = async () => {
     try {
       const { data } = await axios.get(
-        `${apiUrl}/api/v1/category/getall-categories`
+        `${import.meta.env.VITE_API}/api/v1/category/getall-categories`
       );
 
       if (data.success) {
