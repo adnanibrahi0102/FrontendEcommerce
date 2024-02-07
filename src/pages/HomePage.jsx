@@ -68,7 +68,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    
+    console.log(BASE_URL)
     getAllCategories();
     getTotal();
   }, []);
