@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import {BASE_URL} from '../api.js'
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const params = useParams();
@@ -10,7 +10,7 @@ const ProductDetails = () => {
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/products/get-product/${params?.slug}`
+        `${BASE_URL}/api/v1/products/get-product/${params?.slug}`
       );
       console.log(data);
       setProduct(data?.product);
@@ -29,7 +29,7 @@ const ProductDetails = () => {
         <div className="row">
           <div className="col-md-6">
             <img
-              src={`${import.meta.env.VITE_API}/api/v1/products/product-photo/${product._id}`}
+              src={`${BASE_URL}/api/v1/products/product-photo/${product._id}`}
               className="img-thumbnail"
               alt={product.name}
               style={{ maxWidth: "300px", maxHeight: "300px" }}

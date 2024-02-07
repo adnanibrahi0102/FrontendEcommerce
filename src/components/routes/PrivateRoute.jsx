@@ -3,13 +3,14 @@ import { useAuth } from '../../context/auth';
 import { Outlet } from 'react-router-dom';
 import axios from 'axios';
 import Loading from '../Loading';
+import { BASE_URL } from '../../api';
 const PrivateRoute = () => {
     const [ok,setOk]=useState(false);
     const {auth,setAuth}=useAuth();
 
     useEffect(()=>{
         const authCheck=async()=>{
-            const res=await axios.get(`${import.meta.env.VITE_API}/api/v1/auth/userAuth`)
+            const res=await axios.get(`${ BASE_URL}/api/v1/auth/userAuth`)
            console.log(res.data)
             if(res.data.ok){
                 setOk(true);

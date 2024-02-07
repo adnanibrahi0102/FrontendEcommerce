@@ -3,7 +3,7 @@ import Layout from "../../components/layout/Layout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import {BASE_URL} from '../../api.js'
 const Register = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -16,7 +16,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API}/api/v1/auth/register`,
+        `${BASE_URL}/api/v1/auth/register`,
         {
           name,
           email,

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate,useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
-
+import {BASE_URL} from '../../api.js'
 const Login = () => {
   const {auth,setAuth}=useAuth();
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Login = () => {
   const handleSubmit=async(e)=>{
     e.preventDefault();
         try {
-          const response= await axios.post(`${import.meta.env.VITE_API}/api/v1/auth/login`,{
+          const response= await axios.post(`${BASE_URL}/api/v1/auth/login`,{
             email,
             password
           })

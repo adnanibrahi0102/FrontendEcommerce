@@ -5,13 +5,14 @@ import Layout from "../../components/layout/Layout";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import {BASE_URL} from '../../api.js'
 const Products = () => {
   const [products, setProducts] = useState([]);
   //get all products
   const getAllProducts = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/products/get-Allproducts`
+        `${BASE_URL}/api/v1/products/get-Allproducts`
       );
       if (data.success) {
         setProducts(data.products);
@@ -50,7 +51,7 @@ const Products = () => {
                 }}
               >
                 <img
-                  src={`${import.meta.env.VITE_API}/api/v1/products/product-photo/${product._id}`}
+                  src={`${BASE_URL}/api/v1/products/product-photo/${product._id}`}
                   className="card-img-top"
                   alt={product.name}
                   style={{

@@ -3,7 +3,7 @@ import Layout from "../components/layout/Layout";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import {BASE_URL} from '../api.js'
 const CategoryProduct = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -12,7 +12,7 @@ const CategoryProduct = () => {
   const getproductsByCategory = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/products/product-category/${
+        `${BASE_URL}/api/v1/products/product-category/${
           params.slug
         }`
       );
@@ -50,7 +50,7 @@ const CategoryProduct = () => {
                       transition: "transform 0.3s ease",
                     }}
                     src={`${
-                      import.meta.env.VITE_API
+                      BASE_URL
                     }/api/v1/products/product-photo/${product._id}`}
                     className="img-thumbnail card-img-top"
                     alt={product.name}

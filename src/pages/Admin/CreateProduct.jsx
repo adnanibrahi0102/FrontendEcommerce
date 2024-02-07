@@ -5,6 +5,7 @@ import { Select } from "antd";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import {BASE_URL} from '../../api.js'
 const CreateProduct = () => {
   const { Option } = Select;
   const [categories, setCategories] = useState([]);
@@ -21,7 +22,7 @@ const CreateProduct = () => {
   const getAllCategories = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/category/getall-categories`
+        `${BASE_URL}/api/v1/category/getall-categories`
       );
       console.log(data);
       if (data.success) {
@@ -49,7 +50,7 @@ const CreateProduct = () => {
       productData.append("photo",photo);
       productData.append("category",category);
 
-      const data=await axios.post(`${import.meta.env.VITE_API}/api/v1/products/create-product`,productData)
+      const data=await axios.post(`${BASE_URL}/api/v1/products/create-product`,productData)
       console.log(data)
       if(data.data && data.data.success){
         toast.success(data.data.message)

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import DropIn from "braintree-web-drop-in-react";
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import {BASE_URL} from '../api.js'
 const CartPage = () => {
     const navigate=useNavigate();
     const {cart,setCart}=useCart();
@@ -39,7 +40,7 @@ const CartPage = () => {
     //get payment gateway token
     const getToken=async()=>{
         try {
-            const {data}=await axios.get(`${import.meta.env.VITE_API}/api/v1/products/braintree-token`)
+            const {data}=await axios.get(`${BASE_URL}/api/v1/products/braintree-token`)
             setClientToken(data?.clientToken)
         } catch (error) {
             console.log(error)
@@ -50,7 +51,7 @@ const CartPage = () => {
             setLoading(true);
             try {
              const {nonce}=await instance.requestPaymentMethod()
-             const {data}=await axios.post(`${import.meta.env.VITE_API}/api/v1/products/braintree-payment`,{
+             const {data}=await axios.post(`${BASE_URL}/api/v1/products/braintree-payment`,{
                 nonce,cart
              })
              setLoading(false)
@@ -86,7 +87,7 @@ const CartPage = () => {
                     cart?.map((product)=>(
                         <div key={product._id} className='row mb-2 card flex-row p-2 '>
                             <div className="col-md-4">
-                                <img src={`${import.meta.env.VITE_API}/api/v1/products/product-photo/${product._id}`} className="img-thumbnail" width="100px" height='90px' alt={product.name}/>
+                                <img src={`${BASE_URL}/api/v1/products/product-photo/${product._id}`} className="img-thumbnail" width="100px" height='90px' alt={product.name}/>
                             </div>
                             <div className="col-md-8">
                                 <p className='card-title'>{product.name}</p>

@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import Carasoul from "../components/Carasoul";
 import VideoCarasoul from "../components/VideoCarasoul";
 import VideoFrame from "../components/VideoFrame.jsx";
+import {BASE_URL} from '../api.js'
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -26,7 +27,7 @@ const HomePage = () => {
   const getTotal = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/products/product-count`
+        `${BASE_URL}/api/v1/products/product-count`
       );
       setTotal(data?.total);
     } catch (error) {
@@ -38,7 +39,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/products/product-list/${page}`
+        `${BASE_URL}/api/v1/products/product-list/${page}`
       );
       setLoading(false);
       setProducts([...products, ...data.products]);
@@ -55,7 +56,7 @@ const HomePage = () => {
   const getAllCategories = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/category/getall-categories`
+        `${BASE_URL}/api/v1/category/getall-categories`
       );
 
       if (data.success) {
@@ -67,7 +68,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    console.log(import.meta.env.VITE_API)
+    
     getAllCategories();
     getTotal();
   }, []);
@@ -76,7 +77,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/products/product-list/${page}`
+        `${BASE_URL}/api/v1/products/product-list/${page}`
       );
       setLoading(false);
       if (data.success) {
@@ -104,7 +105,7 @@ const HomePage = () => {
   const filteredProducts = async () => {
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_API}/api/v1/products/product-filter`,
+        `${BASE_URL}/api/v1/products/product-filter`,
         { checked, radio }
       );
       if (data.success) {
@@ -172,7 +173,7 @@ const HomePage = () => {
                     objectFit: "cover",
                   }}
                   src={`${
-                    import.meta.env.VITE_API
+                    BASE_URL
                   }/api/v1/products/product-photo/${product._id}`}
                   className="card-img-top"
                   alt={product.name}

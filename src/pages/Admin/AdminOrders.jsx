@@ -5,7 +5,7 @@ import axios from "axios";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
 import { Select } from 'antd';
-
+import {BASE_URL} from '../../api.js'
 const {Option}=Select
 const AdminOrders = () => {
     const [status,setStatus]=useState(["Not Process","Processing","shipped","delivered","cancel"]);
@@ -15,7 +15,7 @@ const AdminOrders = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/auth/all-orders`
+        `${BASE_URL}/api/v1/auth/all-orders`
       );
       console.log(data);
       setOrders(data.orders);
@@ -33,7 +33,7 @@ const AdminOrders = () => {
     console.log('orderId:', orderId);
     console.log('value:', value);
     try {
-      const { data } = await axios.put(`${import.meta.env.VITE_API}/api/v1/auth/change-order-status/${orderId}`, { status: value });
+      const { data } = await axios.put(`${BASE_URL}/api/v1/auth/change-order-status/${orderId}`, { status: value });
       getOrders();
     } catch (error) {
       console.error('Error updating order status:', error);
@@ -93,7 +93,7 @@ const AdminOrders = () => {
                     order?.products.map((product,i)=>(
                         <div key={`${product._id}-${i}`} className='row mb-2 card flex-row p-2 '>
                             <div className="col-md-4">
-                                <img src={`${import.meta.env.VITE_API}/api/v1/products/product-photo/${product._id}`} className="img-thumbnail" width="100px" height='90px' alt={product.name}/>
+                                <img src={`${BASE_URL}/api/v1/products/product-photo/${product._id}`} className="img-thumbnail" width="100px" height='90px' alt={product.name}/>
                             </div>
                             <div className="col-md-8">
                                 <p className='card-title'>{product.name}</p>

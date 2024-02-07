@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from '../components/layout/Layout.jsx'
 import { useSearch } from '../context/search'
+import {BASE_URL} from '../api.js'
 const SearchProducts = () => {
     const { values, setValues } = useSearch()
     
@@ -23,7 +24,7 @@ const SearchProducts = () => {
                     overflow: "hidden",
                   }}
                   src={`${
-                    import.meta.env.VITE_API
+                    BASE_URL
                   }/api/v1/products/product-photo/${product._id}`}
                   className="card-img-top"
                   alt={product.name}

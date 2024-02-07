@@ -5,7 +5,7 @@ import { Select } from "antd";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate ,useParams} from "react-router-dom";
-
+import {BASE_URL} from '../../api.js'
 
 const UpdateProduct = () => {
     const params=useParams();
@@ -26,7 +26,7 @@ const UpdateProduct = () => {
     //get single product
     const getSingleProduct=async()=>{
         try {
-            const {data} =await axios.get(`${import.meta.env.VITE_API}/api/v1/products/get-product/${params.slug}`)
+            const {data} =await axios.get(`${BASE_URL}/api/v1/products/get-product/${params.slug}`)
             console.log(data)
             setName(data.product.name)
             setPrice(data.product.price)
@@ -49,7 +49,7 @@ const UpdateProduct = () => {
     const getAllCategories = async () => {
       try {
         const { data } = await axios.get(
-          `${import.meta.env.VITE_API}/api/v1/category/getall-categories`
+          `${BASE_URL}/api/v1/category/getall-categories`
         );
         console.log(data);
         if (data.success) {
@@ -78,7 +78,7 @@ const UpdateProduct = () => {
         const categoryId = typeof category === 'object' ? category._id : category;
         productData.append("category", categoryId);
   
-        const data=await axios.put(`${import.meta.env.VITE_API}/api/v1/products/update-product/${id}`,productData)
+        const data=await axios.put(`${BASE_URL}/api/v1/products/update-product/${id}`,productData)
         console.log(data)
         if(data.data && data.data.success){
           toast.success(data.data.message)
@@ -97,7 +97,7 @@ const UpdateProduct = () => {
     // //delete product
     const deleteProduct=async()=>{
       try {
-        const {data}=await axios.delete(`${import.meta.env.VITE_API}/api/v1/products/delete-product/${id}`)
+        const {data}=await axios.delete(`${BASE_URL}/api/v1/products/delete-product/${id}`)
         if(data.success){
           toast.success(data.message)
           setTimeout(()=>{

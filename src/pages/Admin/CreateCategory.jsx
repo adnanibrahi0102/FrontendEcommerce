@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import CategoryForm from "../../components/form/CategoryForm";
 import { Modal } from "antd";
-
+import {BASE_URL} from '../../api.js'
 const CreateCategory = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
@@ -17,7 +17,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_API}/api/v1/category/create-category`,
+        `${BASE_URL}/api/v1/category/create-category`,
         { name }
       );
       if (data.success) {
@@ -34,7 +34,7 @@ const CreateCategory = () => {
   const handleDelete = async (id) => {
     try {
       const { data } = await axios.delete(
-        `${import.meta.env.VITE_API}/api/v1/category//deleteCategory/${id}`
+        `${BASE_URL}/api/v1/category//deleteCategory/${id}`
       );
       if (data.success) {
         toast.success(data.message);
@@ -49,7 +49,7 @@ const CreateCategory = () => {
   const getAllCategories = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/category/getall-categories`
+        `${BASE_URL}/api/v1/category/getall-categories`
       );
       console.log(data);
       if (data.success) {
@@ -69,7 +69,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `${import.meta.env.VITE_API}/api/v1/category/update-category/${
+        `${BASE_URL}/api/v1/category/update-category/${
           selected._id
         }`,
         { name: updatedName }

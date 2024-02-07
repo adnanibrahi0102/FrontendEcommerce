@@ -4,6 +4,7 @@ import UserMenu from "../../components/layout/UserMenu";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
+import {BASE_URL} from '../../api.js'
 const Orders = () => {
   const [orders, setOrders] = useState(null);
   const { auth } = useAuth();
@@ -11,7 +12,7 @@ const Orders = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/api/v1/auth/orders`
+        `${BASE_URL}/api/v1/auth/orders`
       );
       console.log(data);
       setOrders(data.orders);
@@ -67,7 +68,7 @@ const Orders = () => {
                     order?.products.map((product)=>(
                         <div key={product._id} className='row mb-2 card flex-row p-2 '>
                             <div className="col-md-4">
-                                <img src={`${import.meta.env.VITE_API}/api/v1/products/product-photo/${product._id}`} className="img-thumbnail" width="100px" height='90px' alt={product.name}/>
+                                <img src={`${BASE_URL}/api/v1/products/product-photo/${product._id}`} className="img-thumbnail" width="100px" height='90px' alt={product.name}/>
                             </div>
                             <div className="col-md-8">
                                 <p className='card-title'>{product.name}</p>
