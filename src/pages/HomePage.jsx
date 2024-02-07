@@ -156,6 +156,7 @@ const HomePage = () => {
        <VideoCarasoul/>
        <VideoFrame/>
       <div className="row mt-2">
+        <h3 className="text-center">All Products</h3>
         {products.map((product) => (
           <div key={product._id} className="col-md-4 mt-3">
             <div className="card p-4">
