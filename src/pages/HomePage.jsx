@@ -67,6 +67,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
+    console.log(import.meta.env.VITE_API)
     getAllCategories();
     getTotal();
   }, []);
