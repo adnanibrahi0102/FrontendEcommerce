@@ -34,7 +34,7 @@ const VideoCarousel = () => {
                 {videos.map((video, index) => (
                     <div key={index} className="card ">
                         <div className="card-body p-2">
-                            <video loop controls autoPlay muted className="img-fluid rounded">
+                            <video loop  autoPlay muted className="img-fluid rounded">
                                 <source src={video} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
