@@ -6,14 +6,12 @@ import { Prices } from "../components/prices";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
-
-import VideoFrame from "../components/VideoFrame.jsx";
-import { BASE_URL } from '../api.js';
+import { BASE_URL } from "../api.js";
 
 const HomePage = () => {
-
-  const Carasoul = React.lazy(()=>import("../components/Carasoul"));
-  const VideoCarasoul = React.lazy(()=>import("../components/VideoCarasoul"));
+  const Carasoul = React.lazy(() => import("../components/Carasoul"));
+  const VideoCarasoul = React.lazy(() => import("../components/VideoCarasoul"));
+  const VideoFrame = React.lazy(() => import("../components/VideoFrame.jsx"));
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -25,12 +23,12 @@ const HomePage = () => {
   const navigate = useNavigate();
   const { cart, setCart } = useCart();
 
-  
-
   // Get total number of products
   const getTotal = async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/api/v1/products/product-count`);
+      const { data } = await axios.get(
+        `${BASE_URL}/api/v1/products/product-count`
+      );
       setTotal(data?.total);
     } catch (error) {
       console.log(error);
@@ -41,7 +39,9 @@ const HomePage = () => {
   const loadmore = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${BASE_URL}/api/v1/products/product-list/${page}`);
+      const { data } = await axios.get(
+        `${BASE_URL}/api/v1/products/product-list/${page}`
+      );
       setLoading(false);
       setProducts([...products, ...data.products]);
     } catch (error) {
@@ -57,7 +57,9 @@ const HomePage = () => {
 
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/api/v1/category/getall-categories`);
+      const { data } = await axios.get(
+        `${BASE_URL}/api/v1/category/getall-categories`
+      );
       if (data.success) {
         setCategories(data.categories);
       }
@@ -75,7 +77,9 @@ const HomePage = () => {
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${BASE_URL}/api/v1/products/product-list/${page}`);
+      const { data } = await axios.get(
+        `${BASE_URL}/api/v1/products/product-list/${page}`
+      );
       setLoading(false);
       if (data.success) {
         setProducts(data.products);
@@ -103,7 +107,10 @@ const HomePage = () => {
   // Get filtered products
   const filteredProducts = async () => {
     try {
-      const { data } = await axios.post(`${BASE_URL}/api/v1/products/product-filter`, { checked, radio });
+      const { data } = await axios.post(
+        `${BASE_URL}/api/v1/products/product-filter`,
+        { checked, radio }
+      );
       if (data.success) {
         setProducts(data?.products);
       }
@@ -120,14 +127,17 @@ const HomePage = () => {
     <Layout>
       <div className="row mt-2">
         <div className="col-md-9">
-          <React.Suspense fallback={ <div className="d-flex justify-content-center mt-5">
-              <div className="spinner-border text-danger" role="status">
-                <span className="visually-hidden">Loading...</span>
+          <React.Suspense
+            fallback={
+              <div className="d-flex justify-content-center mt-5">
+                <div className="spinner-border text-danger" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               </div>
-            </div>}>
-              <Carasoul />
+            }
+          >
+            <Carasoul />
           </React.Suspense>
-         
         </div>
         <div className="col-md-3 border p-3">
           <h4 className="text-center">Filter By Category</h4>
@@ -159,68 +169,73 @@ const HomePage = () => {
           </button>
         </div>
       </div>
-      <React.Suspense fallback={ <div className="d-flex justify-content-center mt-5">
-              <div className="spinner-border text-danger" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            </div>}>
-      <VideoCarasoul />
-      <VideoFrame />
+      <React.Suspense
+        fallback={
+          <div className="d-flex justify-content-center mt-5">
+            <div className="spinner-border text-danger" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        }
+      >
+        <VideoCarasoul />
+        <VideoFrame />
       </React.Suspense>
       <div className="row mt-2">
         <h3 className="text-center">All Products</h3>
-        {
-          loading ? (
-            <div className="d-flex justify-content-center mt-5">
-              <div className="spinner-border text-danger" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
+        {loading ? (
+          <div className="d-flex justify-content-center mt-5">
+            <div className="spinner-border text-danger" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
-          ) : (
-            products.map((product) => (
-              <div key={product._id} className="col-md-4 mt-3">
-                <div className="card p-4">
-                  <div
-                    className="card-img-container"
-                    style={{ position: "relative" }}
+          </div>
+        ) : (
+          products.map((product) => (
+            <div key={product._id} className="col-md-4 mt-3">
+              <div className="card p-4">
+                <div
+                  className="card-img-container"
+                  style={{ position: "relative" }}
+                >
+                  <img
+                    style={{
+                      height: "350px",
+                      objectFit: "cover",
+                    }}
+                    src={`${BASE_URL}/api/v1/products/product-photo/${product._id}`}
+                    className="card-img-top"
+                    alt={product.name}
+                  />
+                  <div className="overlay"></div>
+                </div>
+                <div className="card-body text-center">
+                  <h5 className="card-title">{product.name}</h5>
+                  <p className="card-text">{product.description}</p>
+                  <p className="card-text fw-bold">Price: ${product.price}</p>
+                  <button
+                    onClick={() => {
+                      setCart([...cart, product]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, product])
+                      );
+                      toast.success("Item Added to Cart");
+                    }}
+                    className="btn btn-secondary me-2"
                   >
-                    <img
-                      style={{
-                        height: "350px",
-                        objectFit: "cover",
-                      }}
-                      src={`${BASE_URL}/api/v1/products/product-photo/${product._id}`}
-                      className="card-img-top"
-                      alt={product.name}
-                    />
-                    <div className="overlay"></div>
-                  </div>
-                  <div className="card-body text-center">
-                    <h5 className="card-title">{product.name}</h5>
-                    <p className="card-text">{product.description}</p>
-                    <p className="card-text fw-bold">Price: ${product.price}</p>
-                    <button
-                      onClick={() => {
-                        setCart([...cart, product]);
-                        localStorage.setItem("cart", JSON.stringify([...cart, product]));
-                        toast.success("Item Added to Cart");
-                      }}
-                      className="btn btn-secondary me-2"
-                    >
-                      Add To Cart
-                    </button>
-                    <button
-                      onClick={() => navigate(`/product-details/${product.slug}`)}
-                      className="btn btn-primary"
-                    >
-                      More Details
-                    </button>
-                  </div>
+                    Add To Cart
+                  </button>
+                  <button
+                    onClick={() => navigate(`/product-details/${product.slug}`)}
+                    className="btn btn-primary"
+                  >
+                    More Details
+                  </button>
                 </div>
               </div>
-            ))
-          )
-        }
+            </div>
+          ))
+        )}
       </div>
 
       <div className="row">
@@ -240,9 +255,12 @@ const HomePage = () => {
             loop
             muted
             className="w-100"
-            style={{ minHeight: '100vh', objectFit: 'cover' }}
+            style={{ minHeight: "100vh", objectFit: "cover" }}
           >
-            <source src="https://imagescdn.thecollective.in/img/app/shopmedia/production/7/7-41-12645.mp4" type="video/mp4" />
+            <source
+              src="https://imagescdn.thecollective.in/img/app/shopmedia/production/7/7-41-12645.mp4"
+              type="video/mp4"
+            />
           </video>
         </div>
       </div>

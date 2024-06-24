@@ -40,7 +40,7 @@ const Carasoul = () => {
               style={{
                 width: "100%",
                 maxHeight: "500px",
-                borderRadius: "10px",
+                borderRadius: "",
                 boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
               }}
             />
