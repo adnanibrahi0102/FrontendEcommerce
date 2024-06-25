@@ -8,10 +8,13 @@ import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../api.js";
 
+
+
 const HomePage = () => {
   const Carasoul = React.lazy(() => import("../components/Carasoul"));
   const VideoCarasoul = React.lazy(() => import("../components/VideoCarasoul"));
   const VideoFrame = React.lazy(() => import("../components/VideoFrame.jsx"));
+
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -62,6 +65,7 @@ const HomePage = () => {
       );
       if (data.success) {
         setCategories(data.categories);
+        
       }
     } catch (error) {
       console.log(error);
@@ -73,6 +77,8 @@ const HomePage = () => {
     getAllCategories();
     getTotal();
   }, []);
+
+  console.log(categories)
 
   const getAllProducts = async () => {
     try {
@@ -181,7 +187,10 @@ const HomePage = () => {
         <VideoCarasoul />
         <VideoFrame />
       </React.Suspense>
+     
+    
       <div className="row mt-2">
+
         <h3 className="text-center">All Products</h3>
         {loading ? (
           <div className="d-flex justify-content-center mt-5">
